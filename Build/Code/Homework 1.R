@@ -7,7 +7,7 @@ library(tidyverse)
 
 #Function####
 DIF<- function(x){
-  temp<-((x-lag(x))/x)
+  temp<-(x-lag(x))
   return(temp)
 }
 
@@ -15,9 +15,14 @@ library(readr)
 ILCovid19 <- read_csv("~/Desktop/ECON 691/Data Files/ILCovid19.csv", show_col_types = FALSE)
 
 covidIL<-ILCovid19 %>%
-  mutate(pc_tests=DIF(Tests),
-         pc_positives=DIF(Positives),
-         pc_deaths=DIF(Deaths))
+  mutate(new_tests=DIF(Tests),
+         new_positives=DIF(Positives),
+         new_deaths=DIF(Deaths))
+
+covidIL<-ILCovid19 %>%
+mutate(pc_tests=DIF(Tests)/lag(Tests),
+       pc_positives=DIF(Positives)/lag(Positives),
+       pc_deaths=DIF(Deaths)/lag(Deaths))
 
 covidIL$pc_deaths[is.infinite(covidIL$pc_deaths)]<-NA
 
