@@ -19,10 +19,15 @@ covidIL<-ILCovid19 %>%
          new_positives=DIF(Positives),
          new_deaths=DIF(Deaths))
 
-covidIL<-ILCovid19 %>%
-mutate(pc_tests=DIF(Tests)/lag(Tests),
-       pc_positives=DIF(Positives)/lag(Positives),
-       pc_deaths=DIF(Deaths)/lag(Deaths))
+delta<-function(x){
+  temp<-((x-lag(x))/lag(x))
+  return(temp)
+}
+
+covidIL<-covidIL %>%
+  mutate(pc_tests=delta(new_tests),
+         pc_positives=delta(new_positives),
+         pc_deaths=delta(new_deaths))
 
 covidIL$pc_deaths[is.infinite(covidIL$pc_deaths)]<-NA
 
