@@ -59,3 +59,4 @@ plot(covidIL$Date, covidIL$pc_deaths,
      ylab = "",
      type = "l",
      col = "red")
+
