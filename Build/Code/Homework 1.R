@@ -25,9 +25,15 @@ delta<-function(x){
 }
 
 covidIL<-covidIL %>%
+<<<<<<< HEAD
   mutate(pc_tests=delta(new_tests),
          pc_positives=delta(new_positives),
          pc_deaths=delta(new_deaths))
+=======
+mutate(pc_tests=delta(new_tests),
+       pc_positives=delta(new_positives),
+       pc_deaths=delta(new_deaths))
+>>>>>>> 1d181c701236d729c5c690ce316872530f8780d4
 
 covidIL$pc_deaths[is.infinite(covidIL$pc_deaths)]<-NA
 
